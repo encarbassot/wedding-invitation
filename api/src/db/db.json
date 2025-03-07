@@ -1,0 +1,36 @@
+[
+  {
+    "id": "ABCD12",
+    "users": [
+      {
+        "name": "Test",
+        "blocked": false,
+        "confirmed": true
+      },
+      {
+        "name": "",
+        "blocked": false,
+        "confirmed": null
+      }
+    ],
+    "createdAt": "2025-02-27T20:00:00Z",
+    "updatedAt": "2025-02-27T20:00:00Z"
+  },
+  {
+    "id": "ZLAIQM",
+    "users": [
+      {
+        "name": "Updated User",
+        "blocked": true,
+        "confirmed": true
+      },
+      {
+        "name": "Another User",
+        "blocked": false,
+        "confirmed": false
+      }
+    ],
+    "createdAt": "2025-03-02T21:55:21.251Z",
+    "updatedAt": "2025-03-02T21:55:21.259Z"
+  }
+]

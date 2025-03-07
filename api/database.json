@@ -1,0 +1,210 @@
+{
+  "db-config": {
+    "menus": {
+      "id": {
+        "type": "string",
+        "primary": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "title": {
+        "type": "string",
+        "notNull": true
+      },
+      "description": {
+        "type": "string",
+        "notNull": true
+      },
+      "created_at": {
+        "type": "string",
+        "notNull": true
+      },
+      "updated_at": {
+        "type": "string",
+        "notNull": true
+      }
+    },
+    "invitations": {
+      "id": {
+        "type": "string",
+        "primary": true,
+        "unique": true,
+        "autoIncrement": true
+      },
+      "code": {
+        "type": "string",
+        "notNull": true
+      },
+      "name": {
+        "type": "string",
+        "notNull": true
+      },
+      "leader": {
+        "type": "boolean",
+        "notNull": true
+      },
+      "name_locked": {
+        "type": "boolean",
+        "notNull": true
+      },
+      "menu_id": {
+        "type": "string",
+        "notNull": false
+      },
+      "confirmed": {
+        "type": "boolean",
+        "notNull": false
+      },
+      "created_at": {
+        "type": "string",
+        "notNull": true
+      },
+      "updated_at": {
+        "type": "string",
+        "notNull": true
+      }
+    }
+  },
+  "menus": [
+    {
+      "id": "1",
+      "title": "Menú Vegano",
+      "description": "A full-course vegetarian meal.",
+      "created_at": "2025-03-06T21:49:55.203Z",
+      "updated_at": "2025-03-06T21:49:55.203Z"
+    },
+    {
+      "id": "2",
+      "title": "Menú de Carne",
+      "description": "A full-course vegetarian meal.",
+      "created_at": "2025-03-06T21:50:46.253Z",
+      "updated_at": "2025-03-06T21:50:46.253Z"
+    },
+    {
+      "id": "3",
+      "title": "Menú Infantil",
+      "description": "A full-course vegetarian meal.",
+      "created_at": "2025-03-06T21:50:46.256Z",
+      "updated_at": "2025-03-06T21:50:46.256Z"
+    },
+    {
+      "id": "4",
+      "title": "Menú de Pescado",
+      "description": "A full-course vegetarian meal.",
+      "created_at": "2025-03-06T21:50:46.257Z",
+      "updated_at": "2025-03-06T21:50:46.257Z"
+    }
+  ],
+  "invitations": [
+    {
+      "id": "1",
+      "code": "ABC123",
+      "name": "John Doe",
+      "leader": true,
+      "name_locked": true,
+      "menu_id": "1",
+      "confirmed": true,
+      "created_at": "2025-03-06T21:51:14.163Z",
+      "updated_at": "2025-03-06T21:51:14.163Z"
+    },
+    {
+      "id": "2",
+      "code": "ABC123",
+      "name": "Jane Doe",
+      "leader": false,
+      "name_locked": true,
+      "menu_id": "1",
+      "confirmed": true,
+      "created_at": "2025-03-06T21:51:14.164Z",
+      "updated_at": "2025-03-06T21:51:14.164Z"
+    },
+    {
+      "id": "3",
+      "code": "DEF234",
+      "name": "John Doe 2",
+      "leader": false,
+      "name_locked": true,
+      "menu_id": "1",
+      "confirmed": true,
+      "created_at": "2025-03-06T21:51:14.163Z",
+      "updated_at": "2025-03-06T21:51:14.163Z"
+    },
+    {
+      "id": "4",
+      "code": "DEF234",
+      "name": "Jane Doe 2",
+      "leader": true,
+      "name_locked": true,
+      "menu_id": "1",
+      "confirmed": false,
+      "created_at": "2025-03-06T21:51:14.164Z",
+      "updated_at": "2025-03-06T21:51:14.164Z"
+    },
+    {
+      "id": "5",
+      "code": "1CCWGO",
+      "name": "eloi",
+      "leader": false,
+      "name_locked": false,
+      "menu_id": null,
+      "confirmed": false,
+      "created_at": "2025-03-07T08:21:05.977Z",
+      "updated_at": "2025-03-07T08:21:05.977Z"
+    },
+    {
+      "id": "6",
+      "code": "1CCWGO",
+      "name": "eloi2",
+      "leader": false,
+      "name_locked": false,
+      "menu_id": null,
+      "confirmed": false,
+      "created_at": "2025-03-07T08:22:09.869Z",
+      "updated_at": "2025-03-07T08:22:09.869Z"
+    },
+    {
+      "id": "7",
+      "code": "1CCWGO",
+      "name": "eloi fabrega",
+      "leader": false,
+      "name_locked": true,
+      "menu_id": "3",
+      "confirmed": true,
+      "created_at": "2025-03-07T08:23:22.051Z",
+      "updated_at": "2025-03-07T08:50:51.506Z"
+    },
+    {
+      "id": "9",
+      "code": "1CCWGO",
+      "name": "eloi3",
+      "leader": false,
+      "name_locked": false,
+      "menu_id": null,
+      "confirmed": false,
+      "created_at": "2025-03-07T08:23:48.154Z",
+      "updated_at": "2025-03-07T08:23:48.155Z"
+    },
+    {
+      "id": "A",
+      "code": "1CCWGO",
+      "name": "eloi17",
+      "leader": false,
+      "name_locked": false,
+      "menu_id": null,
+      "confirmed": false,
+      "created_at": "2025-03-07T08:29:28.402Z",
+      "updated_at": "2025-03-07T08:29:28.402Z"
+    },
+    {
+      "id": "B",
+      "code": "1CCWGO",
+      "name": "eloi17",
+      "leader": false,
+      "name_locked": false,
+      "menu_id": null,
+      "confirmed": false,
+      "created_at": "2025-03-07T08:30:05.237Z",
+      "updated_at": "2025-03-07T08:30:05.238Z"
+    }
+  ]
+}
