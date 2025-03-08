@@ -18,7 +18,7 @@ import Spotify from './Spotify';
 
 
 export default function Dashboard() {
-  const date = moment("2025-05-17", "YYYY-MM-DD");
+  const date = moment("2025-05-17 9:00", "YYYY-MM-DD HH:mm" );
   const [menus, setMenus] = useState([]);
 
   useEffect(()=>{
@@ -38,10 +38,11 @@ export default function Dashboard() {
       <div className='Dashboard-page'>
 
         
-      <section className="header">
+      <section data-aos="fade-down" className="header">
+        <img className="imgBackground" src="/flowers.webp" alt="" />
         <div className="overlay"></div> {/* New overlay layer */}
         <div className="header-content">
-          <h1>Ens Casem!</h1>
+          <h1>Ens casem !</h1>
           <h2>Laura & Xavi</h2>
           <h3>{date.format("D [de] MMMM [de] YYYY")}</h3>
         </div>
@@ -56,26 +57,23 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <Confirmation />
+        <Confirmation data-aos="fade-right"/>
 
         <section data-aos="fade-right" className='time'>
           <div className='time-inner'>
             <h2>Falten</h2>
             <Countdown date={date} />
-            <h2>per el gran dia</h2>
+            <h2>Pel gran dia</h2>
           </div>
         </section>
 
         <section data-aos="fade-right" className='map'>
           <div className='map-inner'>
             <h1>On serà?</h1>
-            <a href="https://www.alimarahotel.com/">
-              <h2>Hotel Alimara</h2>
-            </a>
+            <h2>Hotel Alimara</h2>
             <h3>Barcelona</h3>
-            <img src="/hotel.jpg" alt="" />
-            <br />
-            <br />
+            <img src="/hotel.webp" alt="" />
+            <a href="https://www.alimarahotel.com/" style={{textDecoration:"underline"}}>Més informació sobre l'Hotel Alimara</a>
           </div>
 
           <HotelMap />
@@ -103,6 +101,12 @@ export default function Dashboard() {
           <h2>Quina musica voldràs ballar?</h2>
           <h3>No prometem res!</h3>
           <Spotify />
+        </section>
+
+        <section data-aos="fade-right">
+          <h1>Regals</h1>
+          <h2>Ja tenim Airfraier i Roomba</h2>
+          <h2>Amb un bizzum ja fem</h2>
         </section>
 
         <footer>

@@ -10,7 +10,14 @@ import "./elio-react-components/styles/ui.css"
 
 import AOS from 'aos';
 import 'aos/dist/aos.css'; 
-AOS.init();
+AOS.init({
+  offset: window.innerHeight * 0.3, // Starts when element is 30% into the viewport
+  duration: 1200, // Slower animations for better visibility
+  easing: 'ease-out', // Smooth transition
+  once: true, // Only animate once
+  mirror: false, // Don't trigger when scrolling up
+});
+
 
 
 const router = createBrowserRouter([

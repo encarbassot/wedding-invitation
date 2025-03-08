@@ -3,14 +3,16 @@ import './Confirmation.css';
 import { InputText } from '../../../elio-react-components/components/inputs/InputText/InputText';
 import { use, useEffect, useState } from 'react';
 import { callApi } from '../../../api/api';
-import { groupBySingle } from '../../../elio-react-components/utils/utils';
+import { groupBySingle, toTitleCase } from '../../../elio-react-components/utils/utils';
 import icoEdit from "../../../assets/icons/edit.svg"
+import icoCheck from "../../../assets/icons/check.svg"
+import icoCancel from "../../../assets/icons/close.svg"
 import { TextModal } from '../../../elio-react-components/components/Modals/TextModal/TextModal';
 import { InputSelect } from '../../../elio-react-components/components/inputs/InputSelect/InputSelect';
 import { getErrMsgFromResp } from '../../../elio-react-components/utils/apiError';
 
 import icoArrow from "../../../assets/icons/arrow-down.svg"
-export default function Confirmation() {
+export default function Confirmation({...props}) {
 
 
   const { invitationCode } = useParams(); // Get the parameter from URL
@@ -23,6 +25,7 @@ export default function Confirmation() {
   const [menus, setMenus] = useState([])
   const [mine, setMine] = useState(null)
   const [isEditing, setIsEditing] = useState(null)
+  const [isEditingMenu, setIsEditingMenu] = useState(null)
   const [errUpdate, setErrUpdate] = useState({})
   const [showMore, setShowMore] = useState(false)
 
@@ -88,73 +91,38 @@ export default function Confirmation() {
     navigate(`/convidat/${inpCode}`)
   }
 
-  async function handleConfirmEdit(){
-    const {id,name,confirmed,menu_id,code} = isEditing
-    const response = await callApi("/update-mine",{id,code,name,confirmed,menu_id})
-    console.log(response)
-    if(!response.success){
-      console.log("ERROR",getErrMsgFromResp(response))
-      setErrUpdate(getErrMsgFromResp(response))
-    }else{
-      const updatedUser = response.data
-      setMine(prev => {
-        return prev.map(x => x.id === updatedUser.id ? {...x,...updatedUser} : x);
-      })
-      setIsEditing(null)
-      fetchAssistants()
-    }
+
+  async function handleConfirmUser(confirmed,{id,code}){
+    const response = await callApi("/update-mine",{id,code,confirmed})
+    handleMerge(response.data)
   }
+
+  async function handleEditName({id,code}){
+    const response = await callApi("/update-mine",{id,code,name:isEditing.name})
+    handleMerge(response.data)
+    setIsEditing(false)
+  }
+
+  async function handleEditMenu({id,code}){
+    const response = await callApi("/update-mine",{id,code,menu_id:isEditingMenu.menu_id})
+    handleMerge(response.data)
+    setIsEditingMenu(false)
+  }
+
+
+  function handleMerge(updatedUser){
+    setMine(prev => {
+      return prev.map(x => x.id === updatedUser.id ? {...x,...updatedUser} : x);
+    })
+    fetchAssistants()
+  }
+
+
 
   return (
     <>
-      {
-        isEditing &&
-        <TextModal
-          title="Edita la teva invitació"
-          setIsOpen={()=>setIsEditing(null)}
-          cancelar={()=>setIsEditing(null)}
-          aceptar={handleConfirmEdit}
-        >
-          {
-            isEditing.name_locked ?
-            <b>{isEditing.name}</b>
-            :<InputText 
-              title="Nom"
-              autoFocus 
-              value={isEditing.name} 
-              onChange={e=>setIsEditing({...isEditing,name:e.target.value})} 
-              placeholder="Nom"
-              error={errUpdate?.fields?.name}
-            />
-          }
 
-          <InputSelect
-            title="Confirmat"
-            value={isEditing.confirmed}
-            onChange={e=>setIsEditing({...isEditing,confirmed:e})}
-            options={[true,false,null]}
-            formatViewOption={x=>x===true?"Confirmat":x===false?"Cancel·lat":"Pendent"}
-            error={errUpdate?.fields?.confirmed}
-          />
-
-          <InputSelect
-            title={"Menú"}
-            value={isEditing.menu_id}
-            onChange={e=>setIsEditing({...isEditing,menu_id:e})}
-            options={Object.keys(menus)}
-            formatViewOption={x=>menus[x] ? (menus[x]?.emoji + " " + menus[x]?.title) : ""}
-            error={errUpdate?.fields?.menu_id}
-          />
-
-          <br />
-          <br />
-          <br />
-          <br />
-          <br />
-          
-        </TextModal>
-      }
-      <section className='ConfirmationWrapper'>
+      <section className='ConfirmationWrapper' {...props}>
         <article className="Confirmation">
           {(invitationCode && !errCode) && <p>Invitation Code: <strong>{invitationCode}</strong></p>}
           {(!invitationCode || errCode) ?
@@ -174,24 +142,91 @@ export default function Confirmation() {
                 <ul>
                   {mine.map((user)=>{
                     const {id,name,leader,name_locked,menu_id,confirmed} = user
+                    const isConfirmed = confirmed === true
+                    const isDenied = confirmed === false
+                    const isEditingMe = isEditing && isEditing.id === id
+                    const isEditingMyMenu = isEditingMenu  &&  isEditingMenu.id === id
+                    const menu = menu_id && menus[menu_id]
                     return(
-                  <li key={id} onClick={()=>setIsEditing(user)}>
-                    <span>{name || "?"}</span>
-                    <div className='right'>
+                  <li key={id}>
 
+                    <div className='rowName row'>
+                      <div className='row'>
+                        {
+                          (!name_locked && !leader) && (
+                            isEditingMe?
+                            <>
+                              <button onClick={()=>handleEditName(user)}>
+                                <img className="edit" src={icoCheck} alt="" />
+                              </button>
+                              <button onClick={()=>setIsEditing(null)}>
+                                <img className="edit" src={icoCancel} alt="" />
+                              </button>
+                            </>
+                            :
+                            <button onClick={()=>setIsEditing(user)}>
+                              <img className="edit" src={icoEdit} alt="" />
+                            </button>
+                          )
+                        }
+                        <span className='name'>
+                          {isEditingMe ?
+                            <InputText
+                              autoFocus 
+                              value={isEditing.name} 
+                              onChange={e=>setIsEditing({...isEditing,name:toTitleCase(e.target.value)})} 
+                              placeholder="Nom"
+                              error={errUpdate?.fields?.name}
+                            />
+                            :(name || "?")  
+                          }
+                        </span>
+                      </div>
                       <span>
                         {confirmed === true && <span style={{color:"green"}}>Confirmat</span>}
                         {confirmed === false && <span style={{color:"red"}}>Cancel·lat</span>}
                         {confirmed === null && "Pendent"}
                       </span>
-                      
-                      <span>
-                        {menu_id && menus[menu_id]?.emoji || "?"}
-                      </span>
-                      <span>
-                        {menu_id && menus[menu_id]?.title || ""}
-                      </span>
-                      <img className="edit" src={icoEdit} alt="" />
+                    </div>
+
+                    <div className='rowConfirm row'>
+                      <button className={'button green' + (isConfirmed? " muted":"")} onClick={()=>handleConfirmUser(true,user)}>{isConfirmed ? "Confirmat" : "Confirmar"}</button>
+                      <button className={'button red' + (isDenied ? " muted":"")} onClick={()=>handleConfirmUser(false,user)}>{isDenied ? "Cancel·lat" : "Cancel·lar"}</button>
+                    </div>
+
+                    <div className='row rowMenu'>
+                      {
+                        isEditingMyMenu ?
+                        <>
+                          <button onClick={()=>handleEditMenu(user)}>
+                            <img className="edit" src={icoCheck} alt="" />
+                          </button>
+                          <button onClick={()=>setIsEditingMenu(null)}>
+                            <img className="edit" src={icoCancel} alt="" />
+                          </button>
+                        </>
+                        :
+                        <button onClick={()=>setIsEditingMenu(user)}>
+                          <img className="edit" src={icoEdit} alt="" />
+                        </button>
+                      }
+                      <h3>Menu:</h3>
+
+
+                        {
+                          isEditingMyMenu 
+                          ?
+                          <InputSelect 
+                            value={isEditingMenu.menu_id}
+                            onChange={e=>setIsEditingMenu({...isEditingMenu,menu_id:e})}
+                            options={Object.keys(menus)}
+                            formatViewOption={x=>menus[x] ? (menus[x]?.emoji + " " + menus[x]?.title) : ""}
+                          />
+                          : menu ?
+                          menu.emoji + " " + menu.title + " " + menu.emoji
+                          :"Sense menú"
+                        }
+
                     </div>
                   </li>)})}
                 </ul>

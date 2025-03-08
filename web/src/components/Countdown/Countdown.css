@@ -5,10 +5,7 @@
   width: 100%;
   grid-template-columns: repeat(4, 1fr);
 
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
 
-  }
 }
 
 .Countdown article {
@@ -20,4 +17,18 @@
   border-top: 2px solid black;
   border-bottom: 2px solid black;
 
+}
+
+
+
+@media (max-width: 768px) {
+  .Countdown {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .Countdown article:not(:first-child) {
+    border-top: 0;
+    padding: 10px 0;
+  }
 }

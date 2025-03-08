@@ -50,6 +50,7 @@ const updateMineSchema = Joi.object({
 router.post("/update-mine",validateRequest(updateMineSchema), requestTryCatch(async (req, res) => {
 
   const { id, code,name, ...updateData } = req.value;
+  console.log("NAME",name)
 
   const existingRecord = db.findOne("invitations", { id, code });
 
@@ -58,21 +59,18 @@ router.post("/update-mine",validateRequest(updateMineSchema), requestTryCatch(as
   }
 
 
-  // Merge existing record with allowed updates
-  const updatedUser = {
-    ...existingRecord,
-    ...updateData,
-  };
-
-  if (!existingRecord.name_locked && updateData.name) {
-    updatedUser.name = name;
+  console.log(existingRecord.name_locked , updateData.name)
+  if (!existingRecord.name_locked && name) {
+    updateData.name = name;
   }
 
-  console.log("update-mine", updatedUser);
-  db.update("invitations", updatedUser, { id, code });
+  
+
+  console.log("update-mine", updateData);
+  db.update("invitations", updateData, { id, code });
 
 
-  return updatedUser;
+  return {...existingRecord,...updateData};
 }));
 
 

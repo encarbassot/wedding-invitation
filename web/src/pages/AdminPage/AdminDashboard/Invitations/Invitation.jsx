@@ -12,6 +12,7 @@ import { TextModal } from "../../../../elio-react-components/components/Modals/T
 import { callApi } from "../../../../api/api";
 import { InputText } from "../../../../elio-react-components/components/inputs/InputText/InputText";
 import { InputSelect } from "../../../../elio-react-components/components/inputs/InputSelect/InputSelect";
+import { toTitleCase } from "../../../../elio-react-components/utils/utils";
 
 export default function Invitation({
   jwt,
@@ -94,7 +95,7 @@ export default function Invitation({
         <InputText
           title="Nom"
           value={inpName}
-          onChange={e=>setInpName(e.target.value)}
+          onChange={e=>setInpName(toTitleCase(e.target.value))}
           autoFocus
         />
 
