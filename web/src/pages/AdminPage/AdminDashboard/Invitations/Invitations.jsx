@@ -5,7 +5,7 @@ import Invitation from './Invitation';
 import { TextModal } from '../../../../elio-react-components/components/Modals/TextModal/TextModal';
 import { InputText } from '../../../../elio-react-components/components/inputs/InputText/InputText';
 import { getErrMsgFromResp } from '../../../../elio-react-components/utils/apiError';
-import { groupBySingle, ObjectGroupBy } from '../../../../elio-react-components/utils/utils';
+import { groupBySingle, ObjectGroupBy, toTitleCase } from '../../../../elio-react-components/utils/utils';
 
   
 export default function Invitations({jwt}) {
@@ -105,7 +105,7 @@ export default function Invitations({jwt}) {
         <InputText 
           title="Name"
           value={inpName}
-          onChange={e=>setInpName(e.target.value)}
+          onChange={e=>setInpName(toTitleCase(e.target.value))}
           autoFocus
           placeholder="Pepito Los Palotes"
           error={error?.fields?.name}

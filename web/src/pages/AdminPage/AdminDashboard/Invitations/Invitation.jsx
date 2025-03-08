@@ -167,14 +167,19 @@ export default function Invitation({
             }
             </span>
 
-            <div>
-              <span style={{color:"green"}}>{users.filter(x=>x.confirmed === true).length}</span>
-              -
-              <span style={{color:"red"}}>{users.filter(x=>x.confirmed === false).length}</span>
-              -
-              <span>{users.filter(x=>x.confirmed === null).length}</span>
+            <div className="info">
+              <div>
+                <span style={{color:"green"}}>{users.filter(x=>x.confirmed === true).length}</span>
+                -
+                <span style={{color:"red"}}>{users.filter(x=>x.confirmed === false).length}</span>
+                -
+                <span>{users.filter(x=>x.confirmed === null).length}</span>
+              </div>
+              <span>
+                {users[0].code}
+              </span>
             </div>
-            
+
           </div>}
           {
             isOpen && <div className="invitation-details">

@@ -26,6 +26,12 @@
   flex: 1;
 }
 
+.invitation-main .info {
+  display: flex;
+  gap: 1rem;
+  margin-right: 2rem;
+}
+
 
 .pointer {
   cursor: pointer;

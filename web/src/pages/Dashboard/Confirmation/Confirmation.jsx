@@ -4,9 +4,9 @@ import { InputText } from '../../../elio-react-components/components/inputs/Inpu
 import { use, useEffect, useState } from 'react';
 import { callApi } from '../../../api/api';
 import { groupBySingle, toTitleCase } from '../../../elio-react-components/utils/utils';
-import icoEdit from "../../../assets/icons/edit.svg"
-import icoCheck from "../../../assets/icons/check.svg"
-import icoCancel from "../../../assets/icons/close.svg"
+import IcoEdit from "../../../assets/icons/edit.svg?react"
+import IcoCheck from "../../../assets/icons/check.svg?react"
+import IcoCancel from "../../../assets/icons/close.svg?react"
 import { TextModal } from '../../../elio-react-components/components/Modals/TextModal/TextModal';
 import { InputSelect } from '../../../elio-react-components/components/inputs/InputSelect/InputSelect';
 import { getErrMsgFromResp } from '../../../elio-react-components/utils/apiError';
@@ -103,8 +103,8 @@ export default function Confirmation({...props}) {
     setIsEditing(false)
   }
 
-  async function handleEditMenu({id,code}){
-    const response = await callApi("/update-mine",{id,code,menu_id:isEditingMenu.menu_id})
+  async function handleEditMenu(menu_id,{id,code}){
+    const response = await callApi("/update-mine",{id,code,menu_id})
     handleMerge(response.data)
     setIsEditingMenu(false)
   }
@@ -156,17 +156,11 @@ export default function Confirmation({...props}) {
                           (!name_locked && !leader) && (
                             isEditingMe?
                             <>
-                              <button onClick={()=>handleEditName(user)}>
-                                <img className="edit" src={icoCheck} alt="" />
-                              </button>
-                              <button onClick={()=>setIsEditing(null)}>
-                                <img className="edit" src={icoCancel} alt="" />
-                              </button>
+                              <button className='edit green' onClick={()=>handleEditName(user)}><IcoCheck/></button>
+                              <button className='edit red' onClick={()=>setIsEditing(null)}><IcoCancel/></button>
                             </>
                             :
-                            <button onClick={()=>setIsEditing(user)}>
-                              <img className="edit" src={icoEdit} alt="" />
-                            </button>
+                            <button className='edit' onClick={()=>setIsEditing(user)}><IcoEdit/></button>
                           )
                         }
                         <span className='name'>
@@ -196,19 +190,8 @@ export default function Confirmation({...props}) {
 
                     <div className='row rowMenu'>
                       {
-                        isEditingMyMenu ?
-                        <>
-                          <button onClick={()=>handleEditMenu(user)}>
-                            <img className="edit" src={icoCheck} alt="" />
-                          </button>
-                          <button onClick={()=>setIsEditingMenu(null)}>
-                            <img className="edit" src={icoCancel} alt="" />
-                          </button>
-                        </>
-                        :
-                        <button onClick={()=>setIsEditingMenu(user)}>
-                          <img className="edit" src={icoEdit} alt="" />
-                        </button>
+                        !isEditingMyMenu &&
+                        <button className='edit' onClick={()=>setIsEditingMenu(user)}><IcoEdit/></button>
                       }
                       <h3>Menu:</h3>
 
@@ -218,9 +201,9 @@ export default function Confirmation({...props}) {
                           ?
                           <InputSelect 
                             value={isEditingMenu.menu_id}
-                            onChange={e=>setIsEditingMenu({...isEditingMenu,menu_id:e})}
+                            onChange={e=>handleEditMenu(e,user)}
                             options={Object.keys(menus)}
-                            formatViewOption={x=>menus[x] ? (menus[x]?.emoji + " " + menus[x]?.title) : ""}
+                            formatViewOption={x=>menus[x] ? (menus[x]?.emoji + " " + menus[x]?.title + " " + menus[x]?.emoji) : ""}
                           />
                           : menu ?
                           menu.emoji + " " + menu.title + " " + menu.emoji
