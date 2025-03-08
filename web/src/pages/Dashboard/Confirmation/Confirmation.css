@@ -135,7 +135,7 @@
 }
 
 /* Pseudo-element for gradient effect */
-.ConfirmationWrapper .confirmedPeopleArticle::after {
+.ConfirmationWrapper .confirmedPeopleArticle.heightControl::after {
   content: "";
   position: absolute;
   bottom: 0;
