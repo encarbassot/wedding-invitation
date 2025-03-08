@@ -8,6 +8,7 @@ import { jwtVerify } from '../utils/jwt.js';
 import { tokenChecker } from '../utils.js';
 import { ERROR } from '../utils/requestManager.js';
 import Joi from 'joi';
+import { validateRequest } from '../middleware/validateRequest.js';
 
 const router = Router();
 export default router;
@@ -16,39 +17,20 @@ export default router;
 
 const updateSchema = Joi.object({
   id: Joi.string().required(), // Required to identify which record to update
-  name: Joi.string().optional(),
+  name: Joi.string().optional().allow(""),
   leader: Joi.boolean().optional(),
   name_locked: Joi.boolean().optional(),
   menu_id: Joi.string().optional().allow(null),
-  confirmed: Joi.boolean().optional(),
+  confirmed: Joi.boolean().optional().allow(null),
   // code: Joi.string().optional(), // Optional in case we need to update it
 });
 
 
-router.post("/update", jwtVerify(tokenChecker), requestTryCatch(async (req, res) => {
-  const { error, value } = updateSchema.validate(req.body);
+router.post("/update", jwtVerify(tokenChecker), validateRequest(updateSchema), requestTryCatch(async (req, res) => {
 
-  if (error) {
-    return res.sendBad(ERROR.DATA_CORRUPT, error.details);
-  }
+  const { id, ...updateData } = req.value;
 
-  const { id, ...updateData } = value;
-
-  // Ensure the record exists before updating
-  const existingRecord = db.findOne("invitations", { id });
-  if (!existingRecord) {
-    return res.sendBad(ERROR.NOT_FOUND, "Invitation not found");
-  }
-
-  // Prepare the updated object
-  const updatedUser = {
-    ...existingRecord,
-    ...updateData,
-    updated_at: new Date().toISOString(),
-  };
-
-  console.log("update", updatedUser);
-  db.update("invitations", updatedUser, { id });
+  const updatedUser = db.update("invitations", updateData, { id });
 
   return updatedUser;
 }));
@@ -62,17 +44,12 @@ const updateMineSchema = Joi.object({
 
   name: Joi.string().optional(),
   menu_id: Joi.string().optional().allow(null),
-  confirmed: Joi.boolean().optional(),
+  confirmed: Joi.boolean().optional().allow(null),
 });
 
-router.post("/update-mine", requestTryCatch(async (req, res) => {
-  const { error, value } = updateMineSchema.validate(req.body);
+router.post("/update-mine",validateRequest(updateMineSchema), requestTryCatch(async (req, res) => {
 
-  if (error) {
-    return res.sendBad(ERROR.DATA_CORRUPT, error.details);
-  }
-
-  const { id, code, ...updateData } = value;
+  const { id, code,name, ...updateData } = req.value;
 
   const existingRecord = db.findOne("invitations", { id, code });
 
@@ -80,17 +57,16 @@ router.post("/update-mine", requestTryCatch(async (req, res) => {
     return res.sendBad(ERROR.NOT_FOUND, "Invitation not found or invalid code.");
   }
 
-  // Prevent name change if name_locked is true
-  if (existingRecord.name_locked && updateData.name) {
-    return res.sendBad(ERROR.UNAUTHORIZED, "You cannot change your name.");
-  }
 
   // Merge existing record with allowed updates
   const updatedUser = {
     ...existingRecord,
     ...updateData,
-    updated_at: new Date().toISOString(),
   };
+
+  if (!existingRecord.name_locked && updateData.name) {
+    updatedUser.name = name;
+  }
 
   console.log("update-mine", updatedUser);
   db.update("invitations", updatedUser, { id, code });
@@ -98,3 +74,19 @@ router.post("/update-mine", requestTryCatch(async (req, res) => {
 
   return updatedUser;
 }));
+
+
+
+
+const updateMenuSchema = Joi.object({
+  id: Joi.string().required(),
+  title: Joi.string().optional(),
+  description: Joi.string().optional(),
+  emoji: Joi.string().optional(),
+})
+
+router.post("/menu/update",jwtVerify(tokenChecker), validateRequest(updateMenuSchema), requestTryCatch(async (req, res) => {
+  const {title,description,emoji,id} = req.value
+  const insertion = db.update("menus", {title,description,emoji},{id})
+  return insertion
+}))

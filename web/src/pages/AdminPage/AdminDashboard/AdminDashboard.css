@@ -1,67 +1,14 @@
 .AdminDashboard {}
 
-
-.table-invitations {
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  margin: 1rem;
-  padding: 1rem;
-  border-radius: 5px;
-}
-
-
-.table-invitations .Invitation:not(:last-child) {
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.Invitation {
+.AdminDashboard .tabs {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 3px;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid black;
 }
 
-.invitation-main {
-  flex: 1;
-}
-
-.invitation-row {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.pointer {
-  cursor: pointer;
-}
-
-
-.invitation-actions button {}
-
-.invitation-details .actions button,
-.invitation-actions button {
-
-  padding: 3px;
-
-  img {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-.invitation-details {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.invitation-row-gap {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.invitation-row-gap .info {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
+.AdminDashboard .tabs .active {
+  background-color: white;
+  color: black;
 }

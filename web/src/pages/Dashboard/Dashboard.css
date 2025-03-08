@@ -1,4 +1,312 @@
 .Dashboard {
+  text-align: center;
+  font-family: 'Lora', serif;
+  background: linear-gradient(to bottom, #fffaf0, #f7e9d7);
+  min-height: 100vh;
+
+  width: 100vw;
+}
+
+.Dashboard-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* padding: 20px; */
+  gap: 10rem;
 
 }
-  
+
+/* === Wedding Title === */
+.Dashboard h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 10rem;
+  color: #b76e79;
+  margin-bottom: 10px;
+
+  @media (max-width: 768px) {
+    font-size: 6rem;
+  }
+}
+
+/* === Couple Names === */
+.Dashboard h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* === Date Text === */
+.Dashboard h3 {
+  font-size: 1.5rem;
+  color: #6d6875;
+  margin-bottom: 15px;
+}
+
+/* === Wedding Countdown Section === */
+.CountdownWrapper {
+  margin-top: 20px;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: inline-block;
+}
+
+/* === Countdown Text === */
+.CountdownWrapper h3 {
+  font-size: 1.3rem;
+  color: #b76e79;
+  font-weight: bold;
+}
+
+/* === Number Styling for Countdown === */
+.CountdownWrapper span {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* === Location Section === */
+.Location {
+  margin-top: 30px;
+}
+
+.Location h2 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #b76e79;
+}
+
+.Location h3 {
+  font-size: 1.5rem;
+  color: #333;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------------- SECTIONS --------------------------- */
+.Dashboard .header {
+  position: relative;
+  /* padding: 8rem 0; */
+  height: 90vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  /* Background Image */
+  background-image: url("/flowers.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* === Semi-transparent overlay for better text readability === */
+.Dashboard .header .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  /* Light overlay */
+  backdrop-filter: blur(6px);
+  /* Blurs only the background */
+}
+
+/* === Centering Content & Ensuring Visibility === */
+.Dashboard .header .header-content {
+  position: relative;
+  z-index: 2;
+  /* Ensures text is above the overlay */
+  text-align: center;
+  color: #6d6875;
+}
+
+/* === Title Styling === */
+.Dashboard .header h1 {
+  /* font-size: 4rem; */
+  font-family: "Dancing Script", cursive;
+  color: #b76e79;
+}
+
+/* === Couple Names === */
+.Dashboard .header h2 {
+  font-size: 3rem;
+  font-weight: bold;
+  font-family: "Playfair Display", serif;
+}
+
+/* === Wedding Date === */
+.Dashboard .header h3 {
+  font-size: 1.8rem;
+  font-family: "Lora", serif;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.Dashboard section.time {
+  background: #FDE8D6;
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  padding: 6rem;
+}
+
+.Dashboard section.time .time-inner {
+  width: 100%;
+  max-width: 900px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.Dashboard section.map {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+}
+
+.Dashboard section.map .map-inner {
+  width: 100%;
+  max-width: 900px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.addSong {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #1ed760;
+  /* Spotify Green */
+  color: black;
+  font-weight: bold;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 50px;
+  /* Smooth rounded button */
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+  width: fit-content;
+  margin: 20px auto;
+  font-family: Circular, Helvetica, Arial, sans-serif
+}
+
+.addSong img {
+  width: 20px;
+  height: 20px;
+  /* filter: invert(1); */
+  /* Makes the icon white */
+  transition: filter 0.2s ease-in-out;
+}
+
+.addSong:hover {
+  background-color: #1eeb66;
+  /* Lighter Spotify Green */
+  color: white;
+}
+
+.addSong:hover img {
+  filter: invert(1);
+  /* Makes the icon white */
+}
+
+
+
+
+
+
+
+
+
+
+
+.Dashboard section.video {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.Dashboard section.video .video-inner {
+  max-width: min(90vw, 1200px);
+  max-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.Dashboard section.video .video-inner video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  /* Ensures no distortion */
+}
+
+
+
+
+
+
+
+
+
+footer a {
+  text-decoration: underline;
+}

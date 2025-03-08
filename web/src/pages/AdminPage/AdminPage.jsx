@@ -2,8 +2,8 @@ import { useState } from 'react';
 import './AdminPage.css';
 import { InputPassword } from '../../elio-react-components/components/inputs/InputPassword/InputPassword';
 import { callApi } from '../../api/api';
-import { getErrMsgFromResp } from '../../utils/error';
 import AdminDashboard from './AdminDashboard/AdminDashboard';
+import { getErrMsgFromResp } from '../../elio-react-components/utils/apiError';
   
 const TOKEN_KEY = "token-ensCasem"
 export default function AdminPage() {
@@ -11,7 +11,7 @@ export default function AdminPage() {
 
   const [jwt, setJwt] = useState(localStorage.getItem(TOKEN_KEY));
   const [password, setPassword] = useState("")
-  const [error, setError] = useState("")
+  const [error, setError] = useState({})
 
   async function handleLogin(){
     const data = await callApi("/login",{password})
@@ -20,7 +20,7 @@ export default function AdminPage() {
       localStorage.setItem(TOKEN_KEY,data.data)
       setJwt(data.data)
     }else{
-      setError(getErrMsgFromResp(data,"Wrong password").text)
+      setError(getErrMsgFromResp(data,"Wrong password"))
     }
     
 
@@ -36,7 +36,7 @@ export default function AdminPage() {
           value={password}
           onChange={(e)=>setPassword(e.target.value)}
           onEnter={handleLogin}
-          error={error}
+          error={error?.fields?.password}
         />
         <button className='button' onClick={handleLogin}>Login</button>
       </div>
@@ -50,6 +50,9 @@ export default function AdminPage() {
       <p>Logged in</p>
 
       <AdminDashboard jwt={jwt}/>
+
+      <br />
+      <br />
       
     </div>
   );

@@ -4,6 +4,7 @@ import { Router } from 'express';
 import  {requestTryCatch} from "../utils/requestTryCatch.js";
 import { ERROR } from '../utils/requestManager.js';
 import { jwtSign } from '../utils/jwt.js';
+import { validateRequest } from '../middleware/validateRequest.js';
 
 const router = Router();
 export default router;
@@ -15,20 +16,15 @@ const schema = Joi.object({
   password: Joi.string().min(6).required()
 })
 
-router.post("/login", requestTryCatch(async (req, res) => {
+router.post("/login", validateRequest(schema),requestTryCatch(async (req, res) => {
 
 
-  const { error, value } = schema.validate(req.body);
+  const { password } = req.value
 
-  if (error) {
-    return res.sendBad(ERROR.DATA_CORRUPT,error.details)
-  }
+  console.log("LOGIN",password)
 
-  console.log("LOGIN",value)
 
-  const { password } = value
-
-  if (password !== p) return false
+  if (password !== p) return res.sendBad(ERROR.UNAUTHORIZED,"Invalid password","password")
 
   const token = jwtSign({ id })
 

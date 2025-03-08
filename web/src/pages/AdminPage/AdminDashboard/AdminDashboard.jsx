@@ -1,38 +1,31 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './AdminDashboard.css';
-import { callApi } from '../../../api/api';
-import Invitation from './Invitation';
+import Invitations from './Invitations/Invitations';
+import Menus from './Menus/Menus';
+
   
 export default function AdminDashboard({jwt}) {
 
 
-
-
-  const [invitations, setInvitations] = useState([])
-
-  useEffect(()=>{
-    fetchData()
-  },[])
-
-  async function fetchData(){
-    const data = await callApi("/list-admin",{},jwt)
-    if(data.success){
-      setInvitations(data.data)
-      console.log(data.data)
-    }
-  }
-
-
+  const [page,setPage] = useState(0);
   
+
   return (
     <div className="AdminDashboard">
-
-      <div className='table-invitations'>
-        {
-          invitations.map(inv=><Invitation key={inv.id} jwt={jwt} {...inv} />)
-        }
+      
+      <div className='tabs'>
+        <button className={'button' + (page===0 ? " active":"")} onClick={()=>setPage(0)}>Invitations</button>
+        <button className={'button' + (page===1 ? " active":"")} onClick={()=>setPage(1)}>Menus</button>
       </div>
+      {
+        page === 0 && <Invitations jwt={jwt} />
+      }
+  
+      {
+        page === 1 && <Menus jwt={jwt} />
+      }
 
+      
     </div>
   );
 }

@@ -23,6 +23,12 @@ export const ERROR={
     code:400,
     error:"DATA_CORRUPT"
   },
+  VALIDATION_ERROR:{
+    // Only for "validateRequest.js" middleware
+    msg: "Invalid input data",
+    code: 422,
+    error: "VALIDATION_ERROR",
+  },
   UNAUTHORIZED:{
     msg:"you aren't authorized on this page",
     code:401,
@@ -129,10 +135,18 @@ function sendResOK(res,data){
 
 
 
-export function sendResBAD(res,err,more=undefined){
-  if(more){
-    err.more = more
+export function sendResBAD(res,err,more=undefined,field=null){
+  if (field) {
+    // Ensure err.more.fields exists
+    if (!err.more) err.more = {};
+    if (!err.more.fields) err.more.fields = {};
+
+    // Assign error message to the specific field
+    err.more.fields[field] = more;
+  } else if (more) {
+    err.more = more;
   }
+  
   return res.status(err?.code || 400).json({success:false,err})
 }
 
@@ -357,9 +371,9 @@ export function requestManager(){
 
   return (req,res,next)=>{
 
-    res.sendBad = (err,more=undefined)=>sendResBAD(res,err,more)
-    res.sendOk = (data)=>sendResOK(res,data)
-    res.catch = (err,path)=>catchRes(req,res,err,path)
+    res.sendBad = (...props)=>sendResBAD(res,...props) // sendResBAD(res,err,more=undefined,field=null)
+    res.sendOk = (...props)=>sendResOK(res,...props) // sendResOK(res,data)
+    res.catch = (err,...props)=>catchRes(req,res,err,...props) // catchRes(req,res,err,path)
     req.requireBodyData = (keys) => {
       const arg = arguments
       if(arg.length <= 1){
