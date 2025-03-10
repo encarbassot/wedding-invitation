@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 import { callApi } from '../../api/api';
 import EditorOutput from '../../elio-react-components/components/Editor/EditorOutput';
 import Spotify from './Spotify';
+import Timeline from '../../components/Timeline/Timeline';
 
 
 
@@ -28,8 +29,9 @@ export default function Dashboard() {
 
   async function fetchManus(){
     const response = await callApi("/menus/list")
-    const data = await response.data
-    setMenus(data)
+    if(response.success){
+      setMenus(response.data)
+    }
   }
 
   
@@ -57,7 +59,6 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <Confirmation data-aos="fade-right"/>
 
         <section data-aos="fade-right" className='time'>
           <div className='time-inner'>
@@ -80,6 +81,8 @@ export default function Dashboard() {
         </section>
 
 
+        <Timeline data-aos="fade-right" />
+
 
         <section data-aos="fade-right" className='menus'>
           
@@ -94,6 +97,10 @@ export default function Dashboard() {
           </div>
 
         </section>
+
+
+
+        <Confirmation data-aos="fade-right"/>
 
 
 

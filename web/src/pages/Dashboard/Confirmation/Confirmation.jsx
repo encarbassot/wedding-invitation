@@ -75,15 +75,18 @@ export default function Confirmation({...props}) {
   async function fetchAssistants(){
     const response = await callApi("/list")
     console.log(response)
-    setTotal(response.data.total)
-    setAssistants(response.data.assistants)
+    if(response.success){
+      setTotal(response.data.total)
+      setAssistants(response.data.assistants)
+    }
     
   }
 
   async function fetchMenus(){
     const response = await callApi("/menus/list")
-    console.log(response)
-    setMenus(groupBySingle(response.data,x=>x.id))
+    if(response.success){
+      setMenus(groupBySingle(response.data,x=>x.id))
+    }
   }
 
   function handleConfirmCode(){
