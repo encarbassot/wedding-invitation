@@ -83,20 +83,22 @@ export default function Dashboard() {
 
         <Timeline data-aos="fade-right" />
 
+        {
+          menus.length > 0 &&
+          <section data-aos="fade-right" className='menus'>
+            
+            <h1>Menús</h1>
+            <div className='menus-list'>
+              {menus.map((menu, index) => (
+                <div key={index} className='menu'>
+                  <h2>{menu.emoji} {menu.title} {menu.emoji}</h2>
+                  <EditorOutput data={JSON.parse(menu.description)} />
+                </div>
+              ))}
+            </div>
 
-        <section data-aos="fade-right" className='menus'>
-          
-          <h1>Menús</h1>
-          <div className='menus-list'>
-            {menus.map((menu, index) => (
-              <div key={index} className='menu'>
-                <h2>{menu.emoji} {menu.title} {menu.emoji}</h2>
-                <EditorOutput data={JSON.parse(menu.description)} />
-              </div>
-            ))}
-          </div>
-
-        </section>
+          </section>
+        }
 
 
 

@@ -65,16 +65,29 @@
   }
 }
 
+.confirmed h3 {
+  text-align: left;
+}
+
+.rowMenu .alert.red {
+  color: white;
+  background-color: #a00;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-weight: 800;
+
+
+}
 
 .Confirmation .confirmed ul li {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 2rem;
   align-items: flex-start;
   padding: .3rem 0;
-  padding-bottom: 1rem;
 
   &:not(:last-child) {
+    padding-bottom: 3rem;
     border-bottom: 1px solid #dadada;
   }
 

@@ -1,12 +1,12 @@
 import './Timeline.css';
 
 const timelineData = [
-  { date: "12:30", title: "Arribada", description: "Us esperem amb il·lusió a l'Hotel Alimara per començar aquest dia tan especial junts." },
-  { date: "13:00", title: "Cerimònia", description: "Intercanviarem els nostres vots en un entorn màgic al jardí de l'Hotel Alimara." },
-  { date: "13:30", title: "Pica-pica", description: "Brindem plegats! Gaudirem d'un aperitiu exquisit al jardí, envoltats de bones converses i somriures." },
-  { date: "14:30", title: "Dinar", description: "Prepareu-vos per un banquet deliciós ple de moments inoblidables i algun que altre discurs sorpresa!" },
-  { date: "16:00", title: "Cafè, copa i puro", description: "Un moment de pausa per assaborir un bon cafè, brindar amb una copa i, pels clàssics, un puro!" },
-  { date: "18:00", title: "Festa & Ball", description: "Que comenci la festa! Música, rialles i moltes ganes de ballar fins que el cos digui prou!" },
+  { date: "12:30", title: "Arribada", description: "Us esperem a tots a l'hotel Alimara, ben puntuals i pentinats." },
+  { date: "13:00", title: "El moment esperat", description: "Us hi volem de testimonis, serem al jardí de l'hotel." },
+  { date: "13:30", title: "Pica-pica", description: "Brindem plegats i fem un pica-pica al mateix jardí." },
+  { date: "14:30", title: "Dinar", description: "Seurem a taula i farem un bon àpat" },
+  { date: "16:00", title: "Cafè, copa i puro", description: "I si cal, un digestiu" },
+  { date: "18:00", title: "Festa & Ball", description: "Seguirem amb la festa, música, ball...." },
   { date: "...", title: "Els més valents", description: "La nit és jove! Continuarem fins que les cames aguantin (o ens facin fora)!" }
 ];
 

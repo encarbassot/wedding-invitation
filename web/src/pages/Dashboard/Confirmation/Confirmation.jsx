@@ -186,33 +186,39 @@ export default function Confirmation({...props}) {
                       </span>
                     </div>
 
-                    <div className='rowConfirm row'>
-                      <button className={'button green' + (isConfirmed? " muted":"")} onClick={()=>handleConfirmUser(true,user)}>{isConfirmed ? "Confirmat" : "Confirmar"}</button>
-                      <button className={'button red' + (isDenied ? " muted":"")} onClick={()=>handleConfirmUser(false,user)}>{isDenied ? "Cancel·lat" : "Cancel·lar"}</button>
+                    <div>
+                        <h3>Confirmar assistència:</h3>
+                      <div className='rowConfirm row'>
+                        <button className={'button green' + (isConfirmed? " muted":"")} onClick={()=>handleConfirmUser(true,user)}>{isConfirmed ? "Confirmat" : "Confirmar"}</button>
+                        <button className={'button red' + (isDenied ? " muted":"")} onClick={()=>handleConfirmUser(false,user)}>{isDenied ? "Cancel·lat" : "Cancel·lar"}</button>
+                      </div>
                     </div>
 
-                    <div className='row rowMenu'>
-                      {
-                        !isEditingMyMenu &&
-                        <button className='edit' onClick={()=>setIsEditingMenu(user)}><IcoEdit/></button>
-                      }
-                      <h3>Menu:</h3>
-
-
+                    <div>
+                      <h3 className={!menu && "red"}>Escollir menú:</h3>
+                      <div className='row rowMenu'>
                         {
-                          isEditingMyMenu 
-                          ?
-                          <InputSelect 
-                            value={isEditingMenu.menu_id}
-                            onChange={e=>handleEditMenu(e,user)}
-                            options={Object.keys(menus)}
-                            formatViewOption={x=>menus[x] ? (menus[x]?.emoji + " " + menus[x]?.title + " " + menus[x]?.emoji) : ""}
-                          />
-                          : menu ?
-                          menu.emoji + " " + menu.title + " " + menu.emoji
-                          :"Sense menú"
+                          !isEditingMyMenu &&
+                          <button className='edit' onClick={()=>setIsEditingMenu(user)}><IcoEdit/></button>
                         }
+                        <h3 className={!menu && "red"}>Menú:</h3>
 
+
+                          {
+                            isEditingMyMenu 
+                            ?
+                            <InputSelect 
+                              value={isEditingMenu.menu_id}
+                              onChange={e=>handleEditMenu(e,user)}
+                              options={Object.keys(menus)}
+                              formatViewOption={x=>menus[x] ? (menus[x]?.emoji + " " + menus[x]?.title + " " + menus[x]?.emoji) : ""}
+                            />
+                            : menu ?
+                            menu.emoji + " " + menu.title + " " + menu.emoji
+                            :<span className='alert red'>Sense menú</span>
+                          }
+
+                      </div>
                     </div>
                   </li>)})}
                 </ul>
