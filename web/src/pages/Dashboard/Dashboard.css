@@ -246,6 +246,12 @@
   color: #6d6875;
 }
 
+.Dashboard .header .header-content h1 {
+  white-space: nowrap;
+  font-size: clamp(20px, 20vw, 10rem);
+
+}
+
 /* === Title Styling === */
 .Dashboard .header h1 {
   /* font-size: 4rem; */
