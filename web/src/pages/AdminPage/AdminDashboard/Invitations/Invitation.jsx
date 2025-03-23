@@ -263,14 +263,14 @@ function handleCopy(users){
 
   const singleUserText = `Benvolgut/da ${users[0].name.split(' ')[0]},
 
-Esteu convidat/da al nostre casament. Us agrairíem que confirméssiu la vostra assistència a través del següent enllaç:
+Estàs convidat/da al nostre casament. T'agrairíem que confirmis la teva assistència a través del següent enllaç:
 
 ${[WEB_URL, 'convidat', users[0].code].join('/')}
 
-Moltes gràcies i esperem veure-us aviat.
+Moltes gràcies.
 
 Amb afecte,
-[Els nuvis]`;
+Xavi i Laura`;
 
 
 const multipleUsersText = `Benvolgut/da ${users[0].name.split(' ')[0]} i acompanyants,
@@ -279,10 +279,10 @@ Esteu convidats/des (${users.length} persones) al nostre casament. Us agrairíem
 
 ${[WEB_URL, 'convidat', users[0].code].join('/')}
 
-Moltes gràcies i esperem veure-us aviat.
+Moltes gràcies.
 
 Amb afecte,
-[Els nuvis]`;
+Xavi i Laura`;
 
   const text = users.length === 1 ? singleUserText : multipleUsersText;
 

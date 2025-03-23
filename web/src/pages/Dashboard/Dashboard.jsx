@@ -114,8 +114,9 @@ export default function Dashboard() {
 
         <section data-aos="fade-right">
           <h1>Regals</h1>
-          <h2>Ja tenim Airfraier i Roomba</h2>
-          <h2>Amb un bizzum ja fem</h2>
+          <h2>El millor regal, la teva presència</h2>
+          <h2>Si ho vols millorar, un bizzum també serà ben rebut</h2>
+
         </section>
 
         <footer>
