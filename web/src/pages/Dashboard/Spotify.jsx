@@ -12,7 +12,7 @@ export default function Spotify(){
     allowFullScreen="" 
     allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
     loading="lazy"></iframe>
-    <a className="addSong" target="_blank" href="https://open.spotify.com/playlist/5L0o9m1iTOBBIAnvvGbluP?si=kHoXcwykQAiVEm_Ir6wHxQ&pt=78a29e4d6141deb3e22814b21fe22d64&pi=wEVkyl3qQUm-y">Afegir cançons <img src={icoMore} alt="" /></a>
+    <a className="addSong" target="_blank" href="https://open.spotify.com/playlist/5L0o9m1iTOBBIAnvvGbluP?si=PX-dMCvaRA6WmLcXx1tVvA&pt=f50f1a3a39e72e851a108f61f00fff08&pi=dtltUGu0Qq-sO">Afegir cançons <img src={icoMore} alt="" /></a>
   </>
 }
 
