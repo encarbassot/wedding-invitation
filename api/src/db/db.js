@@ -22,3 +22,5 @@ export const db = new JsonDB({
     updated_at: { type: "string", onUpdate: () => new Date().toISOString() }
   }
 })
+
+
