@@ -1,5 +1,5 @@
 
-import JsonDB from './JsonDB.js';
+import JsonDB from './elio-json-db/JsonDB.js';
 
 export const db = new JsonDB({
   menus: {
